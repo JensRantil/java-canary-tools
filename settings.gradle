@@ -8,4 +8,4 @@
  */
 
 rootProject.name = 'java-canary-tools'
-include('app', 'list', 'utilities')
+include('simulation', 'lib')
