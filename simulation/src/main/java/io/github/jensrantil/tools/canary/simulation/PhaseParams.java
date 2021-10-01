@@ -18,7 +18,7 @@ public class PhaseParams {
             return;
         }
         if (key.startsWith(NEW_IMPL)) {
-            origImpl.parse(value.substring(NEW_IMPL.length()), value);
+            newImpl.parse(value.substring(NEW_IMPL.length()), value);
             return;
         }
         throw new IllegalArgumentException(String.format("Unrecognized flag: %s", key));

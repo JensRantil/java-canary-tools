@@ -45,7 +45,7 @@ public class SimulationParameters {
                 continue;
             }
             if (key.startsWith(PHASE_2_PREFIX)) {
-                this.phase1.parse(key.substring(PHASE_2_PREFIX.length()), value);
+                this.phase2.parse(key.substring(PHASE_2_PREFIX.length()), value);
                 continue;
             }
 
