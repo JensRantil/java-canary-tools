@@ -8,8 +8,8 @@ public class SimulationParameters {
     public static final String PHASE_2_PREFIX = "--phase2-";
     public static final String EPSILON_VALIDATION_ERROR = "Epsilon must be between [0,1].";
 
-    public int phaseShift = 5000;
-    public int steps = 10000;
+    public int phaseShift = 500;
+    public int steps = 1000;
     public PhaseParams phase1 =
             new PhaseParams(new ImplementationParam(0), new ImplementationParam(0));
     public PhaseParams phase2 =
