@@ -66,9 +66,9 @@ which implementation to be consequently called.
 MyInterface proxy =
     new CircuitBreakerFallbackBuilder()
         .build(
-                MyInterface.class,
-                oldImplementation,
-                newImplementation);
+            MyInterface.class,
+            oldImplementation,
+            newImplementation);
 ```
 
 #### Experiment with parameters
