@@ -64,7 +64,11 @@ public class Runner {
 
     private static Map<Duration, DownSample> downsample(
             SimulationParameters params, Instant start, List<Sample> samples) {
+
+        // FIXME: Empty timeslots will not be added to the map here. Also populate
+        // those.
         final Map<Duration, DownSample> downsamples = Maps.newTreeMap();
+
         for (Sample sample : samples) {
             final long nanosSinceStart = Duration.between(start, sample.timestamp).toNanos();
             final long downSampledNanosSinceStart =
