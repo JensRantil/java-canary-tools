@@ -6,12 +6,18 @@ import java.time.Duration;
 import java.time.Instant;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 public class Runner {
 
     public static final Joiner SPACE_JOINER = Joiner.on(" ");
 
     public static void main(String[] args) {
+        if (args.length==1 && Objects.equals(args[0], "--help")) {
+            printHelp();
+            return;
+        }
+
         final SimulationParameters params = new SimulationParameters();
         try {
             params.parse(args);
