@@ -38,7 +38,7 @@ Examples
 --------
 ### `WeightedRoundRobinBuilder`
 
-```
+```java
 MyInterface proxy =
     new WeightedRoundRobinBuilder<TestInterface>()
         .add(1, new NewImplementation())
@@ -48,7 +48,7 @@ MyInterface proxy =
 
 ### `WeightedShardedBuilder`
 
-```
+```java
 MyInterface proxy =
     new WeightedShardedBuilder<TestInterface>()
         .add(1, new NewImplementation())
@@ -62,7 +62,7 @@ which implementation to be consequently called.
 
 ### `CircuitBreakerFallbackBuilder`
 
-```
+```java
 MyInterface proxy =
     new CircuitBreakerFallbackBuilder()
         .build(
