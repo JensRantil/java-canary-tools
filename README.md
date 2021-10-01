@@ -34,8 +34,45 @@ of new implementations of Java interfaces:
    using it more and more instead of _old_. If _new_ starts throwing exceptions,
    the Proxy class will quickly roll back to use the _old_ implementation.
 
-Playing around
---------------
+Examples
+--------
+### `WeightedRoundRobinBuilder`
+
+```
+MyInterface proxy =
+    new WeightedRoundRobinBuilder<TestInterface>()
+        .add(1, new NewImplementation())
+        .add(100, new OldImplementation())
+        .build(MyInterface.class);
+```
+
+### `WeightedShardedBuilder`
+
+```
+MyInterface proxy =
+    new WeightedShardedBuilder<TestInterface>()
+        .add(1, new NewImplementation())
+        .add(100, new OldImplementation())
+        .build(MyInterface.class, EXPERIMENT_SEED);
+```
+This will use the `Object#hashCode` of the _first_ parameter on each method
+call to figure out which implementation to delegate to. Call
+`WeightedShardedBuilder#setParamSelector` to customize how you will figure out
+which implementation to be consequently called.
+
+### `CircuitBreakerFallbackBuilder`
+
+```
+MyInterface proxy =
+    new CircuitBreakerFallbackBuilder()
+        .build(
+                MyInterface.class,
+                oldImplementation,
+                newImplementation);
+```
+
+#### Experiment with parameters
+
 You can use the `simulation` Gradle application to play around with the
 `CircuitBreakerFallbackBuilder` parameters. This is what a simulation looks like:
 
