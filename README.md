@@ -41,8 +41,8 @@ Examples
 ```java
 MyInterface proxy =
     new WeightedRoundRobinBuilder<TestInterface>()
-        .add(1, new NewImplementation())
-        .add(100, new OldImplementation())
+        .add(1, newImplementation)
+        .add(100, oldImplementation)
         .build(MyInterface.class);
 ```
 
@@ -51,8 +51,8 @@ MyInterface proxy =
 ```java
 MyInterface proxy =
     new WeightedShardedBuilder<TestInterface>()
-        .add(1, new NewImplementation())
-        .add(100, new OldImplementation())
+        .add(1, newImplementation)
+        .add(100, oldImplementation)
         .build(MyInterface.class, EXPERIMENT_SEED);
 ```
 This will use the `Object#hashCode` of the _first_ parameter on each method
