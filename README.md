@@ -32,7 +32,8 @@ of new implementations of Java interfaces:
    interfaces, the _old_ implementation and the _new_ implementation. As long as
    the new implementation never throws any exception, the Proxy class will start
    using it more and more instead of _old_. If _new_ starts throwing exceptions,
-   the Proxy class will quickly roll back to use the _old_ implementation.
+   the Proxy class will quickly roll back to use the _old_ implementation. Thus,
+   significantly reducing Mean Time To Recovery (MTTR).
 
 Examples
 --------
