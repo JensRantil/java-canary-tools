@@ -18,10 +18,10 @@ using these tools should be easy.
 This Java package contains utility classes to run experiments and safe rollouts
 of new implementations of Java interfaces:
 
- * `WeightedRoundRobinBuilder` allows you delegate a fraction of calls to
-   another implementation of a shared Java interface. Usually useful if you
-   have a different implementation that you would like to behave in the exact
-   same way (including, having the same side-effect).
+ * `WeightedRoundRobinBuilder` allows you delegate a random fraction of calls
+   to another implementation(s) of a shared Java interface. Usually useful if
+   you have a different implementation that you would like to behave in the
+   exact same way (including, having the same side-effect).
  * `WeightedShardedBuilder` constructs a Java proxy that implements a Java
    interface shared between different implementations. The proxy delegates to
    downstream implementations using `Object#hashCode()` of the first method
