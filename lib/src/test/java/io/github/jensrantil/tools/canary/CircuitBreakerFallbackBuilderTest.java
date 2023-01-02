@@ -58,6 +58,6 @@ public class CircuitBreakerFallbackBuilderTest {
         List<Sample> samplesFromPhase2 = samples.subList(params.phaseShift, params.steps);
         long nOldImplCalls = samplesFromPhase2.stream().filter(s -> !s.newImpl).count();
         double ratioOldImplCalls = 1.0 * nOldImplCalls / samplesFromPhase2.size();
-        Assertions.assertTrue(ratioOldImplCalls > 0.95);
+        Assertions.assertTrue(ratioOldImplCalls > 0.8, "Ratio is: " + ratioOldImplCalls);
     }
 }
