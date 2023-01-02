@@ -38,9 +38,9 @@ class WeightedShardedSelector<T> implements Delegator.DelegateSelector {
             indexByWeightInterval.put(total + implementation.weight, implementation.implementation);
             total += implementation.weight;
         }
+        this.indexByWeightInterval = ImmutableSortedMap.copyOf(indexByWeightInterval);
 
         this.seed = seed;
-        this.indexByWeightInterval = ImmutableSortedMap.copyOf(indexByWeightInterval);
         this.total = total;
         this.paramSelector = paramSelector;
     }
