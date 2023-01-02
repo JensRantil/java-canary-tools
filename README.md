@@ -25,11 +25,11 @@ of new implementations of Java interfaces:
  * `WeightedShardedBuilder` constructs a Java proxy that implements a Java
    interface shared between different implementations. The proxy delegates to
    downstream implementations using `Object#hashCode()` of the first method
-   argument, weighted by the downstream implementation. This class is useful if
-   you would like to try out a new Java implementation for a subset of, for
-   example, users. This is useful if you are switching from one implementation
-   to another which will not necessarily behave in the same way (nor have the
-   same side-effects).
+   argument, weighted by the downstream implementation (can be customized).
+   This class is useful if you would like to try out a new Java implementation
+   for a subset of, for example, users. This is useful if you are switching
+   from one implementation to another which will not necessarily behave in the
+   same way (nor have the same side-effects).
  * `CircuitBreakerFallbackBuilder` allows you to do safe rollout of new Java
    `interface` implementations. Use `CircuitBreakerFallbackBuilder` to
    construct a Java Proxy class that wraps two implementations of the same Java
