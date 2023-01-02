@@ -16,10 +16,10 @@ class WeightedShardedSelector<T> implements Delegator.DelegateSelector {
     private final HashCode seed;
     private final ParameterSelector paramSelector;
 
-    public static final ParameterSelector FIRST_PARAM_SELECTOR = k -> k[0];
+    public static final ParameterSelector FIRST_PARAM_SELECTOR = (method, params) -> params[0];
 
     interface ParameterSelector {
-        Object pick(Object[] args);
+        Object pick(Method method, Object[] args);
     }
 
     public WeightedShardedSelector(
@@ -57,7 +57,7 @@ class WeightedShardedSelector<T> implements Delegator.DelegateSelector {
 
     @Override
     public T select(Method method, Object[] args) {
-        final Object firstArgument = paramSelector.pick(args);
+        final Object firstArgument = paramSelector.pick(method, args);
         HashCode hashCode =
                 Hashing.combineOrdered(
                         ImmutableList.of(seed, HashCode.fromInt(firstArgument.hashCode())));
