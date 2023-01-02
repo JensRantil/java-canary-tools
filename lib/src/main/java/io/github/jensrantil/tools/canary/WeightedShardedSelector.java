@@ -16,10 +16,12 @@ class WeightedShardedSelector<T> implements Delegator.DelegateSelector {
     private final HashCode seed;
     private final ParameterSelector paramSelector;
 
-    public static final ParameterSelector FIRST_PARAM_SELECTOR = (method, params) -> params[0];
+    public static final ParameterSelector FIRST_PARAM_SELECTOR = new FirstParamSelector();
 
     interface ParameterSelector {
         Object pick(Method method, Object[] args);
+
+        void validateType(Class<?> clazz);
     }
 
     public WeightedShardedSelector(
@@ -27,7 +29,6 @@ class WeightedShardedSelector<T> implements Delegator.DelegateSelector {
             HashCode seed,
             ParameterSelector paramSelector,
             List<WeightedImplementation<T>> implementations) {
-        checkAllTypeMethods(type);
 
         final TreeMap<Integer, T> indexByWeightInterval = Maps.newTreeMap();
         int total = 0;
@@ -43,16 +44,8 @@ class WeightedShardedSelector<T> implements Delegator.DelegateSelector {
         this.seed = seed;
         this.total = total;
         this.paramSelector = paramSelector;
-    }
 
-    private void checkAllTypeMethods(Class<T> type) {
-        for (Method method : type.getMethods()) {
-            Preconditions.checkArgument(
-                    method.getParameterCount() > 0,
-                    "Type %s has method %s with no argument. Must have a single argument as the first argument is used to know which implementation to delegate to.",
-                    type,
-                    method);
-        }
+        this.paramSelector.validateType(type);
     }
 
     @Override
@@ -65,3 +58,20 @@ class WeightedShardedSelector<T> implements Delegator.DelegateSelector {
         return indexByWeightInterval.tailMap(bucket, false).firstEntry().getValue();
     }
 }
+
+class FirstParamSelector implements WeightedShardedSelector.ParameterSelector {
+    public Object pick(Method method, Object[] args) {
+        return args[0];
+    }
+
+    public void validateType(Class<?> type) {
+        for (Method method : type.getMethods()) {
+            Preconditions.checkArgument(
+                    method.getParameterCount() > 0,
+                    "Type %s has method %s with no argument. Must have a single argument as the first argument is used to know which implementation to delegate to.",
+                    type,
+                    method);
+        }
+    }
+}
+
